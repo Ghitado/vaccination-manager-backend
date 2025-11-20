@@ -46,6 +46,14 @@ builder.Services.AddApplication();
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
+builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
+{
+	builder
+		.AllowAnyOrigin()
+		.AllowAnyMethod()
+		.AllowAnyHeader();
+}));
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -55,6 +63,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthorization();
 
