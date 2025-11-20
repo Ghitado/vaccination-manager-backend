@@ -31,7 +31,7 @@ public class PersonController : ControllerBase
 	{
 		var response = await useCase.Execute(request);
 
-		return CreatedAtAction(nameof(PersonResponse), response);
+		return CreatedAtAction(nameof(GetById), new { response.Id }, response);
 	}
 
 	/// <summary>

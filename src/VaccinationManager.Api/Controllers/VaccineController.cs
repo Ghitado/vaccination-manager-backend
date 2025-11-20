@@ -32,7 +32,7 @@ public class VaccineController : ControllerBase
 	{
 		var response = await useCase.Execute(request);
 
-		return CreatedAtAction(nameof(VaccineResponse), response);
+		return CreatedAtAction(nameof(GetById), new { response.Id }, response);
 	}
 
 	/// <summary>
