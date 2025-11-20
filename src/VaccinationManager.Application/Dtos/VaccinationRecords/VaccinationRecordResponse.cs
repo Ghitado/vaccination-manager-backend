@@ -1,9 +1,12 @@
-﻿namespace VaccinationManager.Application.Dtos.VaccinationRecords;
+﻿using VaccinationManager.Application.Dtos.Persons;
+using VaccinationManager.Application.Dtos.Vaccines;
+
+namespace VaccinationManager.Application.Dtos.VaccinationRecords;
 
 public record VaccinationRecordResponse(
-	Guid Id, 
-	Guid PersonId, 
-	Guid VaccineId, 
-	DateTime Date, 
+	Guid Id,
+	PersonResponse Person,
+	VaccineResponse Vaccine,
+	DateTime Date,
 	int Dose);
 
