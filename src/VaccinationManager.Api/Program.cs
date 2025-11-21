@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using VaccinationManager.Api.Extensions;
 using VaccinationManager.Application;
 using VaccinationManager.Infrastructure;
+using VaccinationManager.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,26 @@ builder.Services.AddSwaggerGen(c =>
 		Description = "API for managing persons, vaccines and vaccination records."
 	});
 
+	c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+	{
+		Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+		Name = "Authorization",
+		In = ParameterLocation.Header,
+		Type = SecuritySchemeType.Http,
+		Scheme = "bearer"
+	});
+
+	c.AddSecurityRequirement(new OpenApiSecurityRequirement
+	{
+		{
+			new OpenApiSecurityScheme
+			{
+				Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+			},
+			Array.Empty<string>()
+		}
+	});
+
 	c.EnableAnnotations();
 
 	var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -27,6 +49,9 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
+
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+	.AddEntityFrameworkStores<VaccinationManagerDbContext>();
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
@@ -51,7 +76,10 @@ app.UseHttpsRedirection();
 
 app.UseCors();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapIdentityApi<IdentityUser>();
 
 app.MapControllers();
 
