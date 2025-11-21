@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using VaccinationManager.Domain.Entities;
 
 namespace VaccinationManager.Infrastructure.Persistence;
 
-public class VaccinationManagerDbContext : DbContext
+public class VaccinationManagerDbContext : IdentityDbContext<IdentityUser>
 {
 	public VaccinationManagerDbContext(DbContextOptions<VaccinationManagerDbContext> options)
 		: base(options) { }
@@ -14,8 +16,8 @@ public class VaccinationManagerDbContext : DbContext
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
+		base.OnModelCreating(modelBuilder); 
 		modelBuilder.ApplyConfigurationsFromAssembly(typeof(VaccinationManagerDbContext).Assembly);
-		base.OnModelCreating(modelBuilder);
 	}
 }
 
