@@ -17,7 +17,6 @@ public class PersonRepository : IPersonRepository
 
 		var items = await _context.Persons
 			.AsNoTracking()
-			.Include(p => p.VaccinationRecords)  
 			.OrderBy(p => p.Name)
 			.Skip((pageNumber - 1) * pageSize)
 			.Take(pageSize)
