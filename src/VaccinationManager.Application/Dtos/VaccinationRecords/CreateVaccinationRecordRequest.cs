@@ -3,6 +3,6 @@
 public record CreateVaccinationRecordRequest(
 	Guid PersonId, 
 	Guid VaccineId, 
-	DateTime Date, 
+	DateTime AppliedAt, 
 	int Dose);
 
