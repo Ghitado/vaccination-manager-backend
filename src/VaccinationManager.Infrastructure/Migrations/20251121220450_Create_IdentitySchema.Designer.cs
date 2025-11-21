@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VaccinationManager.Infrastructure.Persistence;
 
@@ -10,9 +11,11 @@ using VaccinationManager.Infrastructure.Persistence;
 namespace VaccinationManager.Infrastructure.Migrations
 {
     [DbContext(typeof(VaccinationManagerDbContext))]
-    partial class VaccinationManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251121220450_Create_IdentitySchema")]
+    partial class Create_IdentitySchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.21");
