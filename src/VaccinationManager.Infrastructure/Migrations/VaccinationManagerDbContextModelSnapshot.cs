@@ -25,6 +25,7 @@ namespace VaccinationManager.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -38,7 +39,7 @@ namespace VaccinationManager.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("AppliedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Dose")
@@ -67,6 +68,7 @@ namespace VaccinationManager.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -85,7 +87,7 @@ namespace VaccinationManager.Infrastructure.Migrations
                     b.HasOne("VaccinationManager.Domain.Entities.Vaccine", "Vaccine")
                         .WithMany()
                         .HasForeignKey("VaccineId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Person");

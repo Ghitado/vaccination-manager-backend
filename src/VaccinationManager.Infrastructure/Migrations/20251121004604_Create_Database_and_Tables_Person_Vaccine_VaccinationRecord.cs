@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace VaccinationManager.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Create_Database_And_Tables_Persons_Vaccines_VaccinationRecords : Migration
+    public partial class Create_Database_and_Tables_Person_Vaccine_VaccinationRecord : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,7 +16,7 @@ namespace VaccinationManager.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,7 +28,7 @@ namespace VaccinationManager.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,7 +42,7 @@ namespace VaccinationManager.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     PersonId = table.Column<Guid>(type: "TEXT", nullable: false),
                     VaccineId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    AppliedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Dose = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -59,7 +59,7 @@ namespace VaccinationManager.Infrastructure.Migrations
                         column: x => x.VaccineId,
                         principalTable: "Vaccines",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

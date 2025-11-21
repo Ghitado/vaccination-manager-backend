@@ -11,8 +11,8 @@ using VaccinationManager.Infrastructure.Persistence;
 namespace VaccinationManager.Infrastructure.Migrations
 {
     [DbContext(typeof(VaccinationManagerDbContext))]
-    [Migration("20251119205804_Create_Database_And_Tables_Persons_Vaccines_VaccinationRecords")]
-    partial class Create_Database_And_Tables_Persons_Vaccines_VaccinationRecords
+    [Migration("20251121004604_Create_Database_and_Tables_Person_Vaccine_VaccinationRecord")]
+    partial class Create_Database_and_Tables_Person_Vaccine_VaccinationRecord
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,7 @@ namespace VaccinationManager.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -41,7 +42,7 @@ namespace VaccinationManager.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("AppliedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Dose")
@@ -70,6 +71,7 @@ namespace VaccinationManager.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -88,7 +90,7 @@ namespace VaccinationManager.Infrastructure.Migrations
                     b.HasOne("VaccinationManager.Domain.Entities.Vaccine", "Vaccine")
                         .WithMany()
                         .HasForeignKey("VaccineId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Person");
