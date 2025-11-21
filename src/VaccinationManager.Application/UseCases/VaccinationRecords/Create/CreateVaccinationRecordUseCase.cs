@@ -33,6 +33,8 @@ public class CreateVaccinationRecordUseCase : ICreateVaccinationRecordUseCase
 			throw new ArgumentException("Dose must be greater than 0");
 
 		var record = new VaccinationRecord(person.Id, vaccine.Id, request.AppliedAt, request.Dose);
+		person.AddVaccination(record);
+
 		await _recordRepository.Add(record);
 
 		return record.Adapt<VaccinationRecordResponse>();
