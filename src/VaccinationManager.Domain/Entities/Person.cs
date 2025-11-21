@@ -21,7 +21,7 @@ public sealed class Person
 
 	public void AddVaccination(VaccinationRecord record)
 	{
-		if (record == null)
+		if (record is null)
 			throw new DomainException("VaccinationRecord is required.");
 
 		bool alreadyTaken = VaccinationRecords
