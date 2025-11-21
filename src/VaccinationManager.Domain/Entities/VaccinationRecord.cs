@@ -26,6 +26,9 @@ public sealed class VaccinationRecord
 		if (appliedAt == default)
 			throw new DomainException("Invalid date.");
 
+		if (appliedAt > DateTime.UtcNow)
+			throw new DomainException("Vaccination date cannot be in the future.");
+
 		if (dose is <= 0)
 			throw new DomainException("Invalid dose.");
 
