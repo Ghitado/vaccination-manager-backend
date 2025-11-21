@@ -63,12 +63,12 @@ public class PersonController : ControllerBase
 	/// <param name="id">Person id.</param>
 	/// <param name="useCase"></param>
 	/// <returns>The person if found, otherwise 404.</returns>
-	[HttpGet("{id}/vaccinationrecords")]
+	[HttpGet("{id}")]
 	[ProducesResponseType(typeof(PersonResponse), StatusCodes.Status200OK)]
 	[ProducesResponseType(StatusCodes.Status404NotFound)]
 	[SwaggerOperation(
 		Summary = "Get vaccination records by person id",
-		Description = "Returns paginated vaccinatio records of a single person by id.")]
+		Description = "Returns paginated vaccination records of a single person by id.")]
 	public async Task<ActionResult> GetById(
 		[FromRoute] Guid id,
 		[FromServices] IGetPersonByIdUseCase useCase)
@@ -88,7 +88,7 @@ public class PersonController : ControllerBase
 	[ProducesResponseType(typeof(PersonResponse), StatusCodes.Status204NoContent)]
 	[ProducesResponseType(StatusCodes.Status404NotFound)]
 	[SwaggerOperation(
-		Summary = "Get person by id",
+		Summary = "Deletes a person by id",
 		Description = "Deletes a person by id.")]
 	public async Task<ActionResult> DeleteById(
 		[FromRoute] Guid id,
