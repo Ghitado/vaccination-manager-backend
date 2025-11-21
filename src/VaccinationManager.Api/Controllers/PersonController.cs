@@ -3,7 +3,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using VaccinationManager.Application.Dtos.Persons;
 using VaccinationManager.Application.UseCases.Persons.Create;
 using VaccinationManager.Application.UseCases.Persons.Delete;
-using VaccinationManager.Application.UseCases.Persons.GetAll;
+using VaccinationManager.Application.UseCases.Persons.GetPaginated;
 using VaccinationManager.Application.UseCases.Persons.GetById;
 using VaccinationManager.Domain.Common;
 
@@ -42,15 +42,15 @@ public class PersonController : ControllerBase
 	/// <param name="useCase"></param>
 	/// <returns>Paginated list of persons.</returns>
 	[HttpGet]
-	[ProducesResponseType(typeof(PaginatedResult<PersonResponse>), StatusCodes.Status200OK)]
+	[ProducesResponseType(typeof(PaginatedResult<PaginatedPersonResponse>), StatusCodes.Status200OK)]
 	[ProducesResponseType(StatusCodes.Status400BadRequest)]
 	[SwaggerOperation(
-		Summary = "Get all persons",
+		Summary = "Get paginated persons",
 		Description = "Returns a paginated list of persons.")]
-	public async Task<ActionResult> GetAll(
-		[FromQuery] int? pageNumber, 
-		[FromQuery] int? pageSize,
-		[FromServices] IGetAllPersonsUseCase useCase)
+	public async Task<ActionResult> GetPaginated(
+		[FromQuery] int pageNumber, 
+		[FromQuery] int pageSize,
+		[FromServices] IGetPaginatedPersonsUseCase useCase)
 	{
 		var response = await useCase.Execute(pageNumber, pageSize);
 
@@ -58,7 +58,7 @@ public class PersonController : ControllerBase
 	}
 
 	/// <summary>
-	/// Returns a person by id.
+	/// Returns paginated vaccinatio records of a single person by id.
 	/// </summary>
 	/// <param name="id">Person id.</param>
 	/// <param name="useCase"></param>
@@ -67,8 +67,8 @@ public class PersonController : ControllerBase
 	[ProducesResponseType(typeof(PersonResponse), StatusCodes.Status200OK)]
 	[ProducesResponseType(StatusCodes.Status404NotFound)]
 	[SwaggerOperation(
-		Summary = "Get person by id",
-		Description = "Returns a single person by id.")]
+		Summary = "Get vaccination records by person id",
+		Description = "Returns paginated vaccinatio records of a single person by id.")]
 	public async Task<ActionResult> GetById(
 		[FromRoute] Guid id,
 		[FromServices] IGetPersonByIdUseCase useCase)
