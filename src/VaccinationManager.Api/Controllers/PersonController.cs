@@ -63,7 +63,7 @@ public class PersonController : ControllerBase
 	/// <param name="id">Person id.</param>
 	/// <param name="useCase"></param>
 	/// <returns>The person if found, otherwise 404.</returns>
-	[HttpGet("{id}")]
+	[HttpGet("{id}/vaccinationrecords")]
 	[ProducesResponseType(typeof(PersonResponse), StatusCodes.Status200OK)]
 	[ProducesResponseType(StatusCodes.Status404NotFound)]
 	[SwaggerOperation(
