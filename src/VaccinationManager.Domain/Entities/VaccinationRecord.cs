@@ -7,7 +7,7 @@ public sealed class VaccinationRecord
 	public Guid Id { get; private set; }
 	public Guid PersonId { get; private set; }
 	public Guid VaccineId { get; private set; }
-	public DateTime Date { get; private set; }
+	public DateTime AppliedAt { get; private set; }
 	public int Dose { get; private set; }
 
 	public Person? Person { get; private set; }
@@ -15,7 +15,7 @@ public sealed class VaccinationRecord
 
 	private VaccinationRecord() { }
 
-	public VaccinationRecord(Guid personId, Guid vaccineId, DateTime date, int dose)
+	public VaccinationRecord(Guid personId, Guid vaccineId, DateTime appliedAt, int dose)
 	{
 		if (personId == Guid.Empty)
 			throw new DomainException("PersonId is required.");
@@ -23,7 +23,7 @@ public sealed class VaccinationRecord
 		if (vaccineId == Guid.Empty)
 			throw new DomainException("VaccineId is required.");
 
-		if (date == default)
+		if (appliedAt == default)
 			throw new DomainException("Invalid date.");
 
 		if (dose is <= 0)
@@ -32,23 +32,7 @@ public sealed class VaccinationRecord
 		Id = Guid.NewGuid();
 		PersonId = personId;
 		VaccineId = vaccineId;
-		Date = date;
+		AppliedAt = appliedAt;
 		Dose = dose;
-	}
-
-	public void UpdateDose(int dose)
-	{
-		if (dose is <= 0)
-			throw new DomainException("Invalid dose.");
-
-		Dose = dose;
-	}
-
-	public void UpdateDate(DateTime date)
-	{
-		if (date == default)
-			throw new DomainException("Invalid date.");
-
-		Date = date;
 	}
 }

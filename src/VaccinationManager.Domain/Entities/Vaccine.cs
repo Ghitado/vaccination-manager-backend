@@ -17,12 +17,4 @@ public sealed class Vaccine
 		Id = Guid.NewGuid();
 		Name = name;
 	}
-
-	public void UpdateName(string name)
-	{
-		if (string.IsNullOrWhiteSpace(name))
-			throw new DomainException("Name is required.");
-
-		Name = name;
-	}
 }
