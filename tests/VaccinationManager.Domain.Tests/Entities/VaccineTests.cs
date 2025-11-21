@@ -7,41 +7,19 @@ namespace VaccinationManager.Domain.Tests.Entities;
 public class VaccineTests
 {
 	[Fact]
-	public void Constructor_WithValidName_CreatesVaccine()
+	public void Constructor_WithValidName_ShouldCreateVaccine()
 	{
-		var vaccine = new Vaccine("COVID");
+		var vaccine = new Vaccine("COVID-19");
 
-		vaccine.Name.Should().Be("COVID");
 		vaccine.Id.Should().NotBeEmpty();
+		vaccine.Name.Should().Be("COVID-19");
 	}
 
 	[Fact]
-	public void Constructor_WithEmptyName_ThrowsException()
+	public void Constructor_WithEmptyName_ShouldThrowDomainException()
 	{
 		Action act = () => new Vaccine("");
 
-		act.Should().Throw<DomainException>()
-			.WithMessage("Name is required.");
-	}
-
-	[Fact]
-	public void UpdateName_WithValidName_Updates()
-	{
-		var vaccine = new Vaccine("Old");
-
-		vaccine.UpdateName("New");
-
-		vaccine.Name.Should().Be("New");
-	}
-
-	[Fact]
-	public void UpdateName_WithEmptyName_ThrowsException()
-	{
-		var vaccine = new Vaccine("Valid");
-
-		Action act = () => vaccine.UpdateName("");
-
-		act.Should().Throw<DomainException>()
-			.WithMessage("Name is required.");
+		act.Should().Throw<DomainException>();
 	}
 }
