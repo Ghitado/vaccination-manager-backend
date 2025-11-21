@@ -1,6 +1,9 @@
-﻿namespace VaccinationManager.Application.Dtos.Persons;
+﻿using VaccinationManager.Application.Dtos.VaccinationRecords;
+
+namespace VaccinationManager.Application.Dtos.Persons;
 
 public record PersonResponse(
 	Guid Id,
-	string Name);
+	string Name,
+	List<VaccinationRecordResponse> VaccinationRecords);
 
