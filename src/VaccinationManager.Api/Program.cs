@@ -33,7 +33,7 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
 {
 	builder
-		.AllowAnyOrigin()
+		.WithOrigins("https://vaccination-manager-frontend.vercel.app", "http://localhost:5173")
 		.AllowAnyMethod()
 		.AllowAnyHeader();
 }));
