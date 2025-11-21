@@ -5,7 +5,7 @@ namespace VaccinationManager.Domain.Repositories;
 
 public interface IVaccineRepository
 {
-	Task<PaginatedResult<Vaccine>> GetAll(int? pageNumber, int? pageSize);
+	Task<PaginatedResult<Vaccine>> GetPaginated(int pageNumber = 1, int pageSize = 10);
 	Task<Vaccine?> GetById(Guid id);
 	Task<Vaccine> Add(Vaccine vaccine);
 }

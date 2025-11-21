@@ -6,7 +6,7 @@ namespace VaccinationManager.Domain.Repositories;
 public interface IPersonRepository
 {
 	Task<Person?> GetById(Guid id);
-	Task<PaginatedResult<Person>> GetAll(int? pageNumber, int? pageSize);
+	Task<PaginatedResult<Person>> GetPaginated(int pageNumber = 1, int pageSize = 10);
 	Task<Person> Add(Person person);
 	Task Delete(Person person);
 }
