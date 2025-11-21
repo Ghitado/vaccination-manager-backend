@@ -245,4 +245,4 @@ Rationale for the most important design choices:
 
 ## Author
 
-Implementation prepared as part of a technical challenge submission. If you want the wording adjusted to a different tone (for example, more or less formal), tell me which parts to change and I will update the README accordingly.
+By Thiago de Melo Mota. Implementation prepared as part of a technical challenge submission. 
