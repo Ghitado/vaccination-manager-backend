@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using VaccinationManager.Application.Dtos.VaccinationRecords;
 using VaccinationManager.Application.UseCases.VaccinationRecords.Create;
 using VaccinationManager.Application.UseCases.VaccinationRecords.Delete;
 
 namespace VaccinationManager.Api.Controllers;
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class VaccinationRecordController : ControllerBase

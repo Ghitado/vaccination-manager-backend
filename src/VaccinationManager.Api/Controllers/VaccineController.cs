@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using VaccinationManager.Application.Dtos.Vaccines;
 using VaccinationManager.Application.UseCases.Vaccines.Create;
@@ -6,6 +7,7 @@ using VaccinationManager.Application.UseCases.Vaccines.GetPaginated;
 using VaccinationManager.Domain.Common;
 
 namespace VaccinationManager.Api.Controllers;
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class VaccineController : ControllerBase

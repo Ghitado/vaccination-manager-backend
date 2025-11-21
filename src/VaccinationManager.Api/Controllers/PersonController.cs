@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using VaccinationManager.Application.Dtos.Persons;
 using VaccinationManager.Application.UseCases.Persons.Create;
 using VaccinationManager.Application.UseCases.Persons.Delete;
-using VaccinationManager.Application.UseCases.Persons.GetPaginated;
 using VaccinationManager.Application.UseCases.Persons.GetById;
+using VaccinationManager.Application.UseCases.Persons.GetPaginated;
 using VaccinationManager.Domain.Common;
 
 namespace VaccinationManager.Api.Controllers;
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class PersonController : ControllerBase
