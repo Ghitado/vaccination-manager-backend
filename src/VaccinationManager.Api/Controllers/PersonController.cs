@@ -58,7 +58,7 @@ public class PersonController : ControllerBase
 	}
 
 	/// <summary>
-	/// Returns paginated vaccinatio records of a single person by id.
+	/// Returns paginated vaccination records of a single person by id.
 	/// </summary>
 	/// <param name="id">Person id.</param>
 	/// <param name="useCase"></param>
