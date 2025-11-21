@@ -54,6 +54,18 @@ public class VaccinationRecordTests
 	}
 
 	[Fact]
+	public void Constructor_WithFutureDate_ShouldThrowDomainException()
+	{
+		var personId = Guid.NewGuid();
+		var vaccineId = Guid.NewGuid();
+		var futureDate = DateTime.UtcNow.AddDays(1); 
+
+		Action act = () => new VaccinationRecord(personId, vaccineId, futureDate, 1);
+
+		act.Should().Throw<DomainException>();
+	}
+
+	[Fact]
 	public void Constructor_WithInvalidDose_ShouldThrowDomainException()
 	{
 		var personId = Guid.NewGuid();
