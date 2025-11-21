@@ -9,7 +9,10 @@ public class VaccineConfiguration : IEntityTypeConfiguration<Vaccine>
 	public void Configure(EntityTypeBuilder<Vaccine> builder)
 	{
 		builder.HasKey(v => v.Id);
-		builder.Property(v => v.Name).IsRequired();
+
+		builder.Property(v => v.Name)
+			.HasMaxLength(100)
+			.IsRequired();
 	}
 }
 

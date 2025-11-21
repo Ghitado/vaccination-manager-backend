@@ -10,19 +10,21 @@ public class VaccinationRecordConfiguration : IEntityTypeConfiguration<Vaccinati
 	{
 		builder.HasKey(r => r.Id);
 
-		builder.Property(r => r.Date)
+		builder.Property(r => r.AppliedAt)
 			.IsRequired();
-		
+
 		builder.Property(r => r.Dose)
 			.IsRequired();
-		
+
 		builder.HasOne(r => r.Person)
 			.WithMany(p => p.VaccinationRecords)
-			.HasForeignKey(r => r.PersonId);
-		
+			.HasForeignKey(r => r.PersonId)
+			.OnDelete(DeleteBehavior.Cascade); 
+
 		builder.HasOne(r => r.Vaccine)
 			.WithMany()
-			.HasForeignKey(r => r.VaccineId);
+			.HasForeignKey(r => r.VaccineId)
+			.OnDelete(DeleteBehavior.Restrict);
 	}
 }
 
