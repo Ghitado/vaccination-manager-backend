@@ -25,14 +25,14 @@ public sealed class VaccinationRecord
 		if (vaccineId == Guid.Empty)
 			throw new DomainException("VaccineId is required.");
 
-		if (appliedAtUtc == default)
+		if (appliedAt == default)
 			throw new DomainException("Invalid date.");
 
 		if (appliedAtUtc > DateTime.UtcNow)
 			throw new DomainException("Vaccination date cannot be in the future.");
 
-		if (dose is <= 0)
-			throw new DomainException("Invalid dose.");
+		if (dose is <= 0 or > 50)
+			throw new DomainException("Dose must be between 1 and 50.");
 
 		Id = Guid.NewGuid();
 		PersonId = personId;
