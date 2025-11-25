@@ -1,12 +1,37 @@
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using System.Text;
+using VaccinationManager.Api;
 using VaccinationManager.Api.Extensions;
 using VaccinationManager.Application;
 using VaccinationManager.Infrastructure;
-using VaccinationManager.Infrastructure.Persistence;
+using VaccinationManager.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var jwtKey = builder.Configuration["JWT_KEY"] ?? throw new InvalidOperationException("JWT_KEY not set in configuration.");
+
+builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddAuthentication(options =>
+{
+	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+	options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+	options.TokenValidationParameters = new TokenValidationParameters
+	{
+		ValidateIssuer = false,
+		ValidateAudience = false,
+		ValidateLifetime = true,
+		ValidateIssuerSigningKey = true,
+		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+		ClockSkew = TimeSpan.Zero
+	};
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -49,9 +74,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
-
-builder.Services.AddIdentityApiEndpoints<IdentityUser>()
-	.AddEntityFrameworkStores<VaccinationManagerDbContext>();
+builder.Services.AddApi();
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
@@ -73,6 +96,7 @@ if (app.Environment.IsDevelopment())
 	app.UseSwagger();
 	app.UseSwaggerUI();
 	app.ApplyMigrations();
+	await app.SeedInitialDataAsync();
 }
 
 app.UseHttpsRedirection();
@@ -83,8 +107,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapHealthChecks("/health").AllowAnonymous();
-
-app.MapIdentityApi<IdentityUser>();
 
 app.MapControllers();
 

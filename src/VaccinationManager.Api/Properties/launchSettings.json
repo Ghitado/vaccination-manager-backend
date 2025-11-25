@@ -15,7 +15,8 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ConnectionStrings__DefaultConnection": "Host=ep-wispy-firefly-a461471f-pooler.us-east-1.aws.neon.tech; Database=VaccinationDb; Username=neondb_owner; Password=npg_fBo1ilNegP0u; SSL Mode=VerifyFull; Channel Binding=Require;"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
