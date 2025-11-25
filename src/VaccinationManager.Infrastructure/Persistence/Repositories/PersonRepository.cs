@@ -28,7 +28,7 @@ public class PersonRepository : IPersonRepository
 	public async Task<Person?> GetById(Guid id) =>
 		await _context.Persons
 			.AsNoTracking()
-			.Include(p => p.VaccinationRecords)
+			.Include(p => p.VaccinationRecords.OrderByDescending(v => v.AppliedAt))
 				.ThenInclude(v => v.Vaccine)
 			.FirstOrDefaultAsync(p => p.Id == id);
 

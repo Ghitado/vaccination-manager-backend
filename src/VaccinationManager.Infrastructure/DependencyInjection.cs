@@ -11,10 +11,10 @@ public static class DependencyInjection
 {
 	public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
 	{
-		var connectionString = configuration.GetConnectionString("Database");
+		var connectionString = configuration.GetConnectionString("DefaultConnection");
 
 		services.AddDbContext<VaccinationManagerDbContext>(options =>
-			options.UseSqlite(connectionString));
+				options.UseNpgsql(connectionString));
 
 		services.AddScoped<IPersonRepository, PersonRepository>();
 		services.AddScoped<IVaccineRepository, VaccineRepository>();

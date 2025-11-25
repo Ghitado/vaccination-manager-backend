@@ -1,0 +1,34 @@
+services:
+  vaccinationmanager.api:
+    image: ${DOCKER_REGISTRY-}vaccinationmanagerapi
+    build:
+      context: .
+      dockerfile: src/VaccinationManager.Api/Dockerfile
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=vaccinationmanager.database;Port=5432;Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}
+    ports:
+      - "5000:8080" 
+      - "5001:8081" 
+    depends_on:
+      - vaccinationmanager.database
+    networks:
+      - vaccinationmanager-network
+
+  vaccinationmanager.database:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgresdata:/var/lib/postgresql/data
+    networks:
+      - vaccinationmanager-network
+
+volumes:
+  postgresdata:
+
+networks:
+  vaccinationmanager-network:
