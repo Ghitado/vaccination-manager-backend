@@ -37,7 +37,9 @@ public class CreateVaccinationRecordUseCase : ICreateVaccinationRecordUseCase
 
 		await _recordRepository.Add(record);
 
-		return record.Adapt<VaccinationRecordResponse>();
+		var response = record.Adapt<VaccinationRecordResponse>();
+
+		return response with { VaccineName = vaccine.Name };
 	}
 }
 
