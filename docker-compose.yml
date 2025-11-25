@@ -6,6 +6,7 @@ services:
       dockerfile: src/VaccinationManager.Api/Dockerfile
     environment:
       - ConnectionStrings__DefaultConnection=Host=vaccinationmanager.database;Port=5432;Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}
+      - JWT_KEY=${JWT_KEY}
     ports:
       - "5000:8080" 
       - "5001:8081" 
