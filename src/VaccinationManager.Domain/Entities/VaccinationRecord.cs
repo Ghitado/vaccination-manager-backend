@@ -17,16 +17,18 @@ public sealed class VaccinationRecord
 
 	public VaccinationRecord(Guid personId, Guid vaccineId, DateTime appliedAt, int dose)
 	{
+		var appliedAtUtc = appliedAt.ToUniversalTime();
+
 		if (personId == Guid.Empty)
 			throw new DomainException("PersonId is required.");
 
 		if (vaccineId == Guid.Empty)
 			throw new DomainException("VaccineId is required.");
 
-		if (appliedAt == default)
+		if (appliedAtUtc == default)
 			throw new DomainException("Invalid date.");
 
-		if (appliedAt > DateTime.UtcNow)
+		if (appliedAtUtc > DateTime.UtcNow)
 			throw new DomainException("Vaccination date cannot be in the future.");
 
 		if (dose is <= 0)
@@ -35,7 +37,7 @@ public sealed class VaccinationRecord
 		Id = Guid.NewGuid();
 		PersonId = personId;
 		VaccineId = vaccineId;
-		AppliedAt = appliedAt;
+		AppliedAt = appliedAtUtc;
 		Dose = dose;
 	}
 }

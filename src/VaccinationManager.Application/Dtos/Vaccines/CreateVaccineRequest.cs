@@ -1,4 +1,9 @@
-﻿namespace VaccinationManager.Application.Dtos.Vaccines;
+﻿using System.ComponentModel.DataAnnotations;
 
-public record CreateVaccineRequest(string Name);
+namespace VaccinationManager.Application.Dtos.Vaccines;
+
+public record CreateVaccineRequest(
+	[Required(ErrorMessage = "Vaccine name is required.")]
+	[StringLength(100, ErrorMessage = "Vaccine name cannot exceed 100 characters.")]
+	string Name);
 
