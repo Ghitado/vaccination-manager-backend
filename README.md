@@ -2,6 +2,8 @@
 
 Backend for the "Vaccination Manager" technical challenge. Lightweight, testable API implemented with .NET 8, EF Core and a clear layered structure (API -> Application -> Domain -> Infrastructure).
 
+![System Demonstration](./.github/assets/demo.gif)
+
 ## Table of contents
 
 - [Overview](#overview)
