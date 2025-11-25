@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using VaccinationManager.Api;
 using VaccinationManager.Api.Extensions;
+using VaccinationManager.Api.Middlewares;
 using VaccinationManager.Application;
 using VaccinationManager.Infrastructure;
 using VaccinationManager.Infrastructure.Extensions;
@@ -98,6 +99,8 @@ if (app.Environment.IsDevelopment())
 	app.ApplyMigrations();
 	await app.SeedInitialDataAsync();
 }
+
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
