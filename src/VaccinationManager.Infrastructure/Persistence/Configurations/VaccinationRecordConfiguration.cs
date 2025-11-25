@@ -8,6 +8,8 @@ public class VaccinationRecordConfiguration : IEntityTypeConfiguration<Vaccinati
 {
 	public void Configure(EntityTypeBuilder<VaccinationRecord> builder)
 	{
+		builder.ToTable("VaccinationRecords");
+
 		builder.HasKey(r => r.Id);
 
 		builder.Property(r => r.AppliedAt)
