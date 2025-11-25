@@ -60,8 +60,11 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
 	builder
 		.WithOrigins("https://vaccination-manager-frontend.vercel.app", "http://localhost:5173")
 		.AllowAnyMethod()
-		.AllowAnyHeader();
+		.AllowAnyHeader()
+		.AllowCredentials();
 }));
+
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -78,6 +81,8 @@ app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapHealthChecks("/health").AllowAnonymous();
 
 app.MapIdentityApi<IdentityUser>();
 

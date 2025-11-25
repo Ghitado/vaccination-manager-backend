@@ -14,6 +14,13 @@ namespace VaccinationManager.Api.Controllers;
 [ApiController]
 public class PersonController : ControllerBase
 {
+	private readonly ILogger<PersonController> _logger;
+
+	public PersonController(ILogger<PersonController> logger)
+	{
+		_logger = logger;
+	}
+
 	/// <summary>
 	/// Creates a new person.
 	/// </summary>
@@ -31,7 +38,11 @@ public class PersonController : ControllerBase
 		[FromBody] CreatePersonRequest request,
 		[FromServices] ICreatePersonUseCase useCase)
 	{
+		_logger.LogInformation("Starting creation process for person: {Name}", request.Name);
+
 		var response = await useCase.Execute(request);
+
+		_logger.LogInformation("Person created successfully. ID: {Id}", response.Id);
 
 		return CreatedAtAction(nameof(GetById), new { response.Id }, response);
 	}
@@ -54,6 +65,8 @@ public class PersonController : ControllerBase
 		[FromQuery] int pageSize,
 		[FromServices] IGetPaginatedPersonsUseCase useCase)
 	{
+		_logger.LogInformation("Fetching persons. Page: {Page}, Size: {Size}", pageNumber, pageSize);
+
 		var response = await useCase.Execute(pageNumber, pageSize);
 
 		return Ok(response);
@@ -75,9 +88,17 @@ public class PersonController : ControllerBase
 		[FromRoute] Guid id,
 		[FromServices] IGetPersonByIdUseCase useCase)
 	{
+		_logger.LogInformation("Fetching person details. ID: {Id}", id);
+
 		var response = await useCase.Execute(id);
 
-		return response is not null ? Ok(response) : NotFound();
+		if (response is null)
+		{
+			_logger.LogWarning("Person not found. ID: {Id}", id);
+			return NotFound();
+		}
+
+		return Ok(response);
 	}
 
 	/// <summary>
@@ -96,7 +117,11 @@ public class PersonController : ControllerBase
 		[FromRoute] Guid id,
 		[FromServices] IDeletePersonByIdUseCase useCase)
 	{
+		_logger.LogInformation("Request to delete person. ID: {Id}", id);
+
 		await useCase.Execute(id);
+
+		_logger.LogInformation("Person deleted successfully. ID: {Id}", id);
 		return Ok();
 	}
 }

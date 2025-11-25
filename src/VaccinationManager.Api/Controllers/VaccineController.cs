@@ -12,6 +12,13 @@ namespace VaccinationManager.Api.Controllers;
 [ApiController]
 public class VaccineController : ControllerBase
 {
+	private readonly ILogger<VaccineController> _logger;
+
+	public VaccineController(ILogger<VaccineController> logger)
+	{
+		_logger = logger;
+	}
+
 	/// <summary>
 	/// Creates a new vaccine.
 	/// </summary>
@@ -29,7 +36,11 @@ public class VaccineController : ControllerBase
 		[FromBody] CreateVaccineRequest request,
 		[FromServices] ICreateVaccineUseCase useCase)
 	{
+		_logger.LogInformation("Creating new vaccine: {Name}", request.Name);
+
 		var response = await useCase.Execute(request);
+
+		_logger.LogInformation("Vaccine created successfully. ID: {Id}", response.Id);
 
 		return Created(string.Empty, response);
 	}
@@ -52,6 +63,8 @@ public class VaccineController : ControllerBase
 		[FromQuery] int pageSize,
 		[FromServices] IGetPaginatedVaccinesUseCase useCase)
 	{
+		_logger.LogInformation("Fetching vaccines. Page: {Page}, Size: {Size}", pageNumber, pageSize);
+
 		var response = await useCase.Execute(pageNumber, pageSize);
 		return Ok(response);
 	}
