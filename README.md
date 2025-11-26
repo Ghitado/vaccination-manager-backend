@@ -2,6 +2,8 @@
 
 Backend for the "Vaccination Manager" technical challenge. Lightweight, testable API implemented with .NET 8, EF Core and a clear layered structure (API -> Application -> Domain -> Infrastructure).
 
+**Frontend Repository:** [Vaccination Manager Fronted](https://github.com/Ghitado/vaccination-manager-frontend)
+
 ![System Demonstration](./.github/assets/demo.gif)
 
 ## Table of contents
