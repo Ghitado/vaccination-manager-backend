@@ -7,11 +7,15 @@ using VaccinationManager.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
+builder.Services.AddHealthChecks();
+
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 builder.Services.AddApi(builder.Configuration);
 
-builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
 {
@@ -21,8 +25,6 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
 		.AllowAnyHeader()
 		.AllowCredentials();
 }));
-
-builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
