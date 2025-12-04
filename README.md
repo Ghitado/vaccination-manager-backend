@@ -29,6 +29,9 @@ Backend for the "Vaccination Manager" technical challenge. Lightweight, testable
 
 Manage persons, vaccines and vaccination records. The API follows RESTful conventions, returns JSON, and exposes Swagger UI for interactive documentation.
 
+Instead of just building a simple CRUD, I focused on architectural quality. I used **Clean Architecture** to keep the core logic testable and decoupled. I also implemented a custom **JWT & Refresh Token** authentication flow (using HttpOnly cookies) to handle security properly without relying on heavy default templates.
+
+
 ---
 
 ## Tech stack
