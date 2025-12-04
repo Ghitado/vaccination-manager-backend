@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using VaccinationManager.Domain.Entities;
+using VaccinationManager.Domain.Security.Cryptography;
 using VaccinationManager.Domain.Security.Tokens;
 
 namespace VaccinationManager.Infrastructure.Security.Tokens;
@@ -11,8 +12,13 @@ namespace VaccinationManager.Infrastructure.Security.Tokens;
 public class JwtTokenService : ITokenService
 {
 	private readonly IConfiguration _config;
+	private readonly IPasswordHasher _passwordHasher;
 
-	public JwtTokenService(IConfiguration config) => _config = config;
+	public JwtTokenService(IConfiguration config, IPasswordHasher passwordHasher)
+	{
+		_config = config;
+		_passwordHasher = passwordHasher;
+	}
 
 	public string CreateToken(User user)
 	{
@@ -35,5 +41,5 @@ public class JwtTokenService : ITokenService
 	}
 
 	public string GenerateRefreshToken() => Guid.NewGuid().ToString("N");
-	public string HashToken(string token) => BCrypt.Net.BCrypt.HashPassword(token);
+	public string HashToken(string token) => _passwordHasher.HashPassword(token);
 }
